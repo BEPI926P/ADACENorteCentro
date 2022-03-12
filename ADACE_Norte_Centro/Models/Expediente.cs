@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace ADACE_Norte_Centro.Models
 {
     public class Expediente
