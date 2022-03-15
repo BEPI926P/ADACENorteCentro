@@ -1,9 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ADACE_Norte_Centro.Consola.DBConnection
 {
@@ -19,7 +15,7 @@ namespace ADACE_Norte_Centro.Consola.DBConnection
             this.connetionString = connectionString;
         }
 
-        public void OpenConnection()
+        private void OpenConnection()
         {
             this.connection = new MySqlConnection(this.connetionString);
             this.connection.Open();
@@ -29,22 +25,23 @@ namespace ADACE_Norte_Centro.Consola.DBConnection
         public void CloseConnection()
         {
             this.connection.Close();
+            Console.WriteLine("Conexion cerrada!.");
         }
 
-        public void Consulta(string query)
+        public MySqlDataReader Consulta(string query)
         {
-            this.command = new MySqlCommand(query, this.connection);
-            this.dataReader = this.command.ExecuteReader();
-
-            while (this.dataReader.Read())
+            try
             {
-                for (int i = 0; i < this.dataReader.FieldCount; i++)
-                {
-                    Console.Write(this.dataReader.GetValue(i));
-                    Console.Write(" ");
-                }
-                Console.WriteLine();
+                OpenConnection();
+                this.command = new MySqlCommand(query, this.connection);
+                this.dataReader = this.command.ExecuteReader();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en consulta: " + ex.Message);
+            }
+
+            return this.dataReader;
         }
     }
 }
