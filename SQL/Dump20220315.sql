@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `Auditoria` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `Auditoria`;
--- MySQL dump 10.13  Distrib 8.0.20, for macos10.15 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
--- Host: localhost    Database: Auditoria
+-- Host: localhost    Database: auditoria
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,13 +16,13 @@ USE `Auditoria`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Contribuyente`
+-- Table structure for table `contribuyente`
 --
 
-DROP TABLE IF EXISTS `Contribuyente`;
+DROP TABLE IF EXISTS `contribuyente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Contribuyente` (
+CREATE TABLE `contribuyente` (
   `idContribuyente` int NOT NULL AUTO_INCREMENT,
   `NombredeContribuyente` varchar(100) NOT NULL,
   `RFC` varchar(15) NOT NULL,
@@ -37,23 +35,23 @@ CREATE TABLE `Contribuyente` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Contribuyente`
+-- Dumping data for table `contribuyente`
 --
 
-LOCK TABLES `Contribuyente` WRITE;
-/*!40000 ALTER TABLE `Contribuyente` DISABLE KEYS */;
-INSERT INTO `Contribuyente` VALUES (1,'Traver Stone International S.A. de C.V.','TSI100709K84','Venta de Marmol','Avenida Escobedo Ote. número exterior 46, número interior 7 Altos, colonia Centro, C.P. 27000, Torreón, Coahuila de Zaragoza.','Avenida Escobedo Ote. número exterior 46, número interior 7 Altos, colonia Centro, C.P. 27000, Torreón, Coahuila de Zaragoza.');
-/*!40000 ALTER TABLE `Contribuyente` ENABLE KEYS */;
+LOCK TABLES `contribuyente` WRITE;
+/*!40000 ALTER TABLE `contribuyente` DISABLE KEYS */;
+INSERT INTO `contribuyente` VALUES (1,'Traver Stone International S.A. de C.V.','TSI100709K84','Venta de Marmol','Avenida Escobedo Ote. número exterior 46, número interior 7 Altos, colonia Centro, C.P. 27000, Torreón, Coahuila de Zaragoza.','Avenida Escobedo Ote. número exterior 46, número interior 7 Altos, colonia Centro, C.P. 27000, Torreón, Coahuila de Zaragoza.');
+/*!40000 ALTER TABLE `contribuyente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Expediente`
+-- Table structure for table `expediente`
 --
 
-DROP TABLE IF EXISTS `Expediente`;
+DROP TABLE IF EXISTS `expediente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Expediente` (
+CREATE TABLE `expediente` (
   `idExpediente` varchar(30) NOT NULL,
   `NumerodeOrden` varchar(20) NOT NULL,
   `TipodeRevision` varchar(100) NOT NULL,
@@ -67,13 +65,13 @@ CREATE TABLE `Expediente` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Expediente`
+-- Dumping data for table `expediente`
 --
 
-LOCK TABLES `Expediente` WRITE;
-/*!40000 ALTER TABLE `Expediente` DISABLE KEYS */;
-INSERT INTO `Expediente` VALUES ('7s-005-00000009-2830s','CPA59000009/22','PAMA','1','2022-03-08 23:30:00',NULL);
-/*!40000 ALTER TABLE `Expediente` ENABLE KEYS */;
+LOCK TABLES `expediente` WRITE;
+/*!40000 ALTER TABLE `expediente` DISABLE KEYS */;
+INSERT INTO `expediente` VALUES ('7s-005-00000009-2830s','CPA59000009/22','PAMA','1','2022-03-08 23:30:00',NULL),('8s-005-00000009-2830s','CPA59000009/23','PAMA','1','2022-03-08 23:30:00',NULL);
+/*!40000 ALTER TABLE `expediente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -85,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-12 14:47:58
+-- Dump completed on 2022-03-15 21:15:15
