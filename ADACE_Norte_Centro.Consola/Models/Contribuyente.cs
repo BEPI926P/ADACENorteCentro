@@ -2,7 +2,7 @@
 
 namespace ADACE_Norte_Centro.Consola.Models
 {
-    public class Contriubuyente { 
+    public class Contribuyente { 
 
         public string idContribuyente { get; set; }
         public string NombredeContribuyente {get; set;}
@@ -10,7 +10,8 @@ namespace ADACE_Norte_Centro.Consola.Models
         public string GiroContribuyente { get; set; }
         public string DomicilioFiscal { get; set; }
         public string DomicilioParaOiryRecibirNotificaciones { get; set; }
-        public Contriubuyente()
+
+        public Contribuyente()
         {
         }
     }
