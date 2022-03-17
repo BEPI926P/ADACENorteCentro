@@ -22,59 +22,44 @@ namespace ADACE_Norte_Centro.Consola
                 DBConnection.DBConnection dBConnection = new DBConnection.DBConnection(connectionString);
                 MySqlDataReader mysqlDataReader = dBConnection.Consulta("SELECT idExpediente,NumerodeOrden,TipodeRevision,idContribuyente,FechadeApertura,FechadeCierre FROM auditoria.expediente;");
 
-                /*
-                 * filas-rows
-                 * 
-                 * 
-                 * int fecha = null;
-                 * int fecha = 0;
-                 * */
-                //List<Models.Expediente> listaExpedientes = new List<Models.Expediente>();
-                int conteoFilasSQL = 0;
+                // Solucion factible
+                List<Models.Expediente> listaExpedientes = new List<Models.Expediente>();
 
-                while (mysqlDataReader.Read())
-                {
-                    conteoFilasSQL = conteoFilasSQL + 1;
-                }
-
-                object[] listaExpedientes = new object[conteoFilasSQL];
-
-                int conteoFilasSQL2 = 0;
                 while (mysqlDataReader.Read())
                 {
                     Models.Expediente expediente = new Models.Expediente();
-                    expediente.idExpediente = mysqlDataReader.GetString(0);
+                    expediente.idExpediente = mysqlDataReader.GetString("idExpediente");
                     expediente.NumeroOrden = mysqlDataReader.GetString(1);
                     expediente.TipoRevision = mysqlDataReader.GetString(2);
                     expediente.idContribuyente = mysqlDataReader.GetString(3);
                     expediente.FechadeApertura = mysqlDataReader.GetDateTime(4);
-                    expediente.FechadeCierre = mysqlDataReader.GetDateTime(5);
+                    expediente.FechadeCierre = ConvertFromDBVal<DateTime>(mysqlDataReader.GetValue(5));
 
-                    listaExpedientes[conteoFilasSQL2] = expediente;
-
-                    conteoFilasSQL2 = conteoFilasSQL2 + 1;
-
-                    /*for (int i = 0; i < mysqlDataReader.FieldCount; i++)
-                    {
-                        Console.Write(" " + mysqlDataReader.GetValue(i));
-                    }
-                    Console.WriteLine();*/
+                    listaExpedientes.Add(expediente);
                 }
+
                 dBConnection.CloseConnection();
 
-                for (int i = 0; i < listaExpedientes.Length; i++)
+                foreach (Models.Expediente expedienteInterno in listaExpedientes)
                 {
-                    Models.Expediente expediente = (Models.Expediente)listaExpedientes[i];
-                    Console.WriteLine(expediente.idExpediente + " " + expediente.NumeroOrden + " " + expediente.TipoRevision + " " + expediente.idContribuyente + " " + expediente.FechadeApertura + " " + expediente.FechadeCierre);
+                    Console.WriteLine(expedienteInterno.ToString());
                 }
-
-                //Conexion nueva
-                /*DBConnection.DBConnection dBConnection1 = new DBConnection.DBConnection(connectionString);
-                dBConnection1.Consulta("SELECT * FROM Auditoria.Contribuyente;");*/
             }
             catch (Exception excepcion)
             {
                 Console.WriteLine("Error al procesar informacion: " + excepcion.Message);
+            }
+        }
+
+        public static T ConvertFromDBVal<T>(object obj)
+        {
+            if (obj == null || obj == DBNull.Value)
+            {
+                return default(T); // returns the default value for the type
+            }
+            else
+            {
+                return (T)obj;
             }
         }
     }

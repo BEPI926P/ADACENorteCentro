@@ -18,5 +18,10 @@ namespace ADACE_Norte_Centro.Consola.Models
         public Expediente()
         {
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
