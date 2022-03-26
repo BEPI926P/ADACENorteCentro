@@ -1,5 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Auditoria_Preventiva
 {
@@ -14,7 +18,7 @@ namespace Auditoria_Preventiva
             // - Vacias a excel nuestros datos procesados.
             string path = string.Empty;
             Console.Write("Ingresa la ubicacion de la carpeta a leer: ");
-            path = Console.ReadLine();
+            path = Console.ReadLine();            
 
             Paso_1(path);
             Paso_2();
@@ -48,22 +52,40 @@ namespace Auditoria_Preventiva
             File.WriteAllText(path + "/SWH.usp_Reports_GetPackaginSlip_MODIFICADO.sql", file2);
         }
 
-        public static void Paso_1(string path)
+        /// <summary>
+        /// Lee archivo especificado
+        /// </summary>
+        /// <param name="fileName"></param>
+        public static void LeerArchivo(string fileName)
         {
             // Leer archivo de texto
-            string[] fileLines = File.ReadAllLines(path + "/SWH.usp_Reports_GetPackaginSlip.sql");
+            string[] fileLines = System.IO.File.ReadAllLines(fileName);
 
-            // Modificamos archivo de texto
-            fileLines[0] = "He modificado la linea";
+            string[] fileToSave = new string[fileLines.Length];
 
-            // Imprimimos en pantalla el archivo modificado
+            int contador = 0;
+
             foreach (string line in fileLines)
             {
-                Console.WriteLine(line);
+                string tempLine = line.Replace(",", ";");
+                tempLine = tempLine.Replace("|", ",");
+
+                fileToSave[contador] = tempLine;
+                contador = contador + 1;
             }
 
             // Creamos un nuevo archivo
-            File.WriteAllLines(path + "/SWH.usp_Reports_GetPackaginSlip_MODIFICADO.sql", fileLines);
+            File.WriteAllLines(fileName.Replace(".asc", ".csv"), fileToSave);
+        }
+
+        public static void Paso_1(string path)
+        {
+            string[] files = Directory.GetFiles(path, "*.asc");
+            foreach (string fileName in files)
+            {
+                Console.WriteLine("Modificando el archivo: " + fileName);
+                LeerArchivo(fileName);
+            }
         }
 
         public static void Paso_2()
