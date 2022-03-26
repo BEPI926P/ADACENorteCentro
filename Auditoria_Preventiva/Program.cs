@@ -12,6 +12,8 @@ namespace Auditoria_Preventiva
     {
         private static List<string> _FilesFromFolder { get; set; }
         private static List<string[]> _FilesProcesed { get; set; }
+        private static List<string> _ColumnsName { get; set; }
+
 
         public static void Main(string[] args)
         {
@@ -42,10 +44,14 @@ namespace Auditoria_Preventiva
             // Procesar datos leidos
             Paso_2 paso2 = new Paso_2();
             _FilesProcesed = new List<string[]>();
+            _ColumnsName = new List<string>();
             foreach (string file in _FilesFromFolder)
             {
-                _FilesProcesed.Add(paso2.ReadFile(file));
+                _FilesProcesed.Add(paso2.ReadFile(file).ToArray());
+                _ColumnsName.AddRange(paso2.ReadColumns(file));
             }
+
+            paso2.PrintColumnsNames(_ColumnsName);
         }
 
         public static void Paso_3()
