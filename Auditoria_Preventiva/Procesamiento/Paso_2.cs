@@ -37,22 +37,20 @@ namespace Auditoria_Preventiva.Procesamiento
                 if (contador == 0)
                 {
                     string[] columnsName = tempLine.Split("|");
-                    string columnsLine = string.Empty;
-
                     tempLine = string.Empty;
 
                     for (int i = 0; i < columnsName.Length; i++)
                     {
                         if (i < 3)
                         {
-                            if (string.IsNullOrEmpty(columnsLine))
+                            if (string.IsNullOrEmpty(tempLine))
                             {
                                 tempLine = "NumeroPedimento";
                             }
                         }
                         else
                         {
-                            tempLine = tempLine + "|" + columnsName[i];
+                            tempLine = tempLine + "," + columnsName[i];
                         }
                     }
                 }
@@ -71,7 +69,7 @@ namespace Auditoria_Preventiva.Procesamiento
                         }
                         else
                         {
-                            tempLine = tempLine + "|" + columnsData[i];
+                            tempLine = tempLine + "," + columnsData[i];
                         }
                     }
                 }

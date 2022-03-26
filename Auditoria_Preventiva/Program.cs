@@ -25,7 +25,7 @@ namespace Auditoria_Preventiva
         public static void Paso_1()
         {
             // Leer archivos desde una carpeta
-            string path = string.Empty;
+            string path;
             Console.Write("Ingresa la ubicacion de la carpeta a leer: ");
             path = Console.ReadLine();
 
@@ -51,7 +51,7 @@ namespace Auditoria_Preventiva
                 _ColumnsName.AddRange(paso2.ReadColumns(file));
             }
 
-            paso2.PrintColumnsNames(_ColumnsName);
+            //paso2.PrintColumnsNames(_ColumnsName);
         }
 
         public static void Paso_3()

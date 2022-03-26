@@ -17,7 +17,8 @@ namespace ADACE_Norte_Centro.Consola.DBConnection
 
         private void OpenConnection()
         {
-            this.connection = new MySqlConnection(this.connetionString);
+            this.connection = new MySqlConnection();
+            this.connection.ConnectionString = this.connetionString;
             this.connection.Open();
             Console.WriteLine("Connection Open  !");
         }

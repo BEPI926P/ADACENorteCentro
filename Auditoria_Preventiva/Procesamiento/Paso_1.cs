@@ -9,11 +9,16 @@ namespace Auditoria_Preventiva.Procesamiento
 {
     public class Paso_1
     {
-        private string _Extension { get; set; }
+        private string _Extension;
+        public string Extension
+        {
+            get { return this._Extension; }
+            set { this._Extension = value; }
+        }
 
         public Paso_1(string Extension = "*.asc")
         {
-            this._Extension = Extension;
+            this.Extension = Extension;
         }
 
         private string[] GetFilesFromDirectory(string path)
