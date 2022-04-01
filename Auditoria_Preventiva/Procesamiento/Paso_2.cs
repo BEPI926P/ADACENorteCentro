@@ -98,5 +98,54 @@ namespace Auditoria_Preventiva.Procesamiento
                 contador = contador + 1;
             }
         }
+
+        public string[] ReadColumnsInDatabase()
+        {
+            try
+            {
+                string filePath = Directory.GetCurrentDirectory() + "\\Database\\ColumnsDatabase.txt";
+                if (File.Exists(filePath))
+                {
+                    ReadFileData(filePath);
+                }
+                else
+                {
+                    if (Directory.Exists(Directory.GetCurrentDirectory() + "\\Database\\"))
+                    {
+                        File.Create(filePath).Close();
+                        ReadFileData(filePath);
+                        Console.WriteLine("El archivo no existe y se ha creado");
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Database\\");
+                        File.Create(filePath).Close();
+                        ReadFileData(filePath);
+                        Console.WriteLine("El archivo no existe y se ha creado");
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine("Ocurrio un Error"); }
+
+            return this._file;
+        }
+
+        public bool SaveColumnsInFile(List<string> columns)
+        {
+            bool result = false;
+            try
+            {
+                string filePath = Directory.GetCurrentDirectory() + "\\Database\\ColumnsDatabase.txt";
+                File.WriteAllLines(filePath, columns);
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

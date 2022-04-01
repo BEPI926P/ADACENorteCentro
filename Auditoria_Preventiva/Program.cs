@@ -13,6 +13,7 @@ namespace Auditoria_Preventiva
         private static List<string> _FilesFromFolder { get; set; }
         private static List<string[]> _FilesProcesed { get; set; }
         private static List<string> _ColumnsName { get; set; }
+        private static List<string> _ColumnsNameFile { get; set; }
 
 
         public static void Main(string[] args)
@@ -44,11 +45,45 @@ namespace Auditoria_Preventiva
             // Procesar datos leidos
             Paso_2 paso2 = new Paso_2();
             _FilesProcesed = new List<string[]>();
+            // Archivo de columnas
             _ColumnsName = new List<string>();
+            // Archivo de datos(archivos *.asc)
+            _ColumnsNameFile = new List<string>();
+            bool columnsFileSufferChanges = false;
             foreach (string file in _FilesFromFolder)
             {
+                // Leer archivo con columnas almacenadas
+                _ColumnsName.AddRange(paso2.ReadColumnsInDatabase());
+
+                // Saber primero columans del archivo
+                _ColumnsNameFile.AddRange(paso2.ReadColumns(file));
+
+                // Procesamiento de columnas
+                foreach (string column in _ColumnsNameFile)
+                {
+                    if (!_ColumnsName.Contains(column))
+                    {
+                        // columna no existe
+                        _ColumnsName.Add(column);
+                        columnsFileSufferChanges = true;
+                    }
+                }
+
+                if (columnsFileSufferChanges)
+                {
+                    // Guardar columnas nuevas
+                    if (paso2.SaveColumnsInFile(_ColumnsName))
+                    {
+                        Console.WriteLine("Se Guardaron las columnas!.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error Guardando las columnas!.");
+                    }
+                }
+
+                // Procesar el archivo segun relacion de columnas
                 _FilesProcesed.Add(paso2.ReadFile(file).ToArray());
-                _ColumnsName.AddRange(paso2.ReadColumns(file));
             }
 
             //paso2.PrintColumnsNames(_ColumnsName);
