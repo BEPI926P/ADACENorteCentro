@@ -31,10 +31,26 @@ namespace Auditoria_Preventiva.Procesamiento
         public void PrintFileData(string filename)
         {
             ReadFileData(filename);
+            ProcessFileIntoColumns(filename);
             foreach (string row in this._file)
             {
                 Console.WriteLine(row);
             }
+        }
+
+        private void ProcessFileIntoColumns(string filename)
+        {
+            List<string> fileProcesed = new List<string>();
+
+            foreach (string row in this._file)
+            {
+                string tempLine = row.Replace(",", ";");
+                tempLine = tempLine.Replace("|", ",");
+
+                fileProcesed.Add(tempLine);
+            }
+
+            this._file = fileProcesed.ToArray();
         }
 
         public List<string> ReadFile(string fileName)
