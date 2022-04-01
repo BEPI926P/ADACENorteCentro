@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Auditoria_Preventiva.Procesamiento
 {
     public class Paso_1
-    {
+    
         private string _Extension;
         public string Extension
         {
