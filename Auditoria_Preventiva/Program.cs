@@ -19,8 +19,8 @@ namespace Auditoria_Preventiva
         public static void Main(string[] args)
         {
             Paso_1();
-            Paso_2();
-            Paso_3();
+            //Paso_2();
+            //Paso_3();
         }
 
         public static void Paso_1()
