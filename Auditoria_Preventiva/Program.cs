@@ -18,12 +18,12 @@ namespace Auditoria_Preventiva
 
         public static void Main(string[] args)
         {
-            Paso_1();
-            //Paso_2();
-            //Paso_3();
+            Paso1();
+            Paso2();
+            //Paso3();
         }
 
-        public static void Paso_1()
+        public static void Paso1()
         {
             // Leer archivos desde una carpeta
             string path;
@@ -33,13 +33,27 @@ namespace Auditoria_Preventiva
             Paso_1 paso1 = new Paso_1();
             _FilesFromFolder = paso1.LeerArchivosCarpeta(path);
 
-            foreach (string fileName in _FilesFromFolder)
+            /*foreach (string fileName in _FilesFromFolder)
             {
                 Console.WriteLine("Archivo Leido => " + fileName);
+            }*/
+        }
+
+        public static void Paso2()
+        {
+            Paso_2 paso2 = new Paso_2();
+            _FilesProcesed = new List<string[]>();
+
+            foreach (string fileName in _FilesFromFolder)
+            {
+                _FilesProcesed.Add(paso2.ReadDataInFile(fileName));
+                Console.WriteLine("File name => " + fileName);
+                paso2.PrintFileData(fileName);
+                Console.WriteLine("*******************************************************************************");
             }
         }
 
-        public static void Paso_2()
+        public static void Paso2Deprecated()
         {
             // Leer contenido de archivos de texto.
             // Procesar datos leidos
@@ -89,7 +103,7 @@ namespace Auditoria_Preventiva
             //paso2.PrintColumnsNames(_ColumnsName);
         }
 
-        public static void Paso_3()
+        public static void Paso3()
         {
             // Guardar datos procesados en excel.
             Paso_3 paso3 = new Paso_3();

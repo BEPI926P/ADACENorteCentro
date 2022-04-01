@@ -22,6 +22,21 @@ namespace Auditoria_Preventiva.Procesamiento
             this._file = System.IO.File.ReadAllLines(fileName);
         }
 
+        public string[] ReadDataInFile(string filename)
+        {
+            ReadFileData(filename);
+            return _file;
+        }
+
+        public void PrintFileData(string filename)
+        {
+            ReadFileData(filename);
+            foreach (string row in this._file)
+            {
+                Console.WriteLine(row);
+            }
+        }
+
         public List<string> ReadFile(string fileName)
         {
             ReadFileData(fileName);
