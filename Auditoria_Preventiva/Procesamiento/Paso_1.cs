@@ -29,7 +29,7 @@ namespace Auditoria_Preventiva.Procesamiento
         public List<string> LeerArchivosCarpeta(string path)
         {
             string[] files = GetFilesFromDirectory(path);
-            List<string> filesFromArray = files.ToList();
+            List<string> filesFromArray = FilterFilesDataStage(files.ToList());
             return filesFromArray;
         }
 
@@ -40,6 +40,25 @@ namespace Auditoria_Preventiva.Procesamiento
             {
                 Console.WriteLine(file);
             }
+        }
+
+        public List<string> FilterFilesDataStage(List<string> files)
+        {
+            List<string> newFiles = new List<string>();
+            foreach (string file in files)
+            {
+                string[] fileName = file.Split("\\");
+                string[] codeExtention = fileName[fileName.Length - 1].Split('_');
+
+                int outResult = 0;
+
+                if (int.TryParse(codeExtention[1].Split('.')[0], out outResult))
+                {
+                    newFiles.Add(file);
+                }
+
+            }
+            return newFiles;
         }
     }
 }
