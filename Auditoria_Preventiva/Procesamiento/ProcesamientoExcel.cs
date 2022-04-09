@@ -105,6 +105,23 @@ namespace Auditoria_Preventiva.Procesamiento
                             row.CreateCell(25).SetCellValue(file.FechaPagoReal);
                         }
                     }
+                    {
+                        if (dataFile[i][0].GetType() == typeof(_502))
+                        {
+                            foreach (_502 file in dataFile[i])
+                            {
+                                ISheet excelsheet = workbook.CreateSheet(file.Patente + file.Pedimento + file.SeccionAduanera);
+                                IRow row = excelsheet.CreateRow(i);
+                                row.CreateCell(0).SetCellValue(file.RfcTransportista);
+                                row.CreateCell(1).SetCellValue(file.CurpTransportista);
+                                row.CreateCell(2).SetCellValue(file.NombreTransportista);
+                                row.CreateCell(3).SetCellValue(file.PaisTransporte);
+                                row.CreateCell(4).SetCellValue(file.IdentificadorTransporte);
+                                row.CreateCell(5).SetCellValue(file.FechaPagoReal);
+                            }
+                        }
+                   
+                    }
                 }
 
                 workbook.Write(fs);
