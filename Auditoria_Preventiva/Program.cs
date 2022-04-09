@@ -42,15 +42,34 @@ namespace Auditoria_Preventiva
         public static void Paso2()
         {
             Paso_2 paso2 = new Paso_2();
+            ProcesamientoExcel pe = new ProcesamientoExcel("Ejemplo.xlsx");
             _FilesProcesed = new List<string[]>();
+            List<List<object>> _dataFromFiles = new List<List<object>>();
 
             foreach (string fileName in _FilesFromFolder)
             {
                 _FilesProcesed.Add(paso2.ReadDataInFile(fileName));
-                Console.WriteLine("File name => " + fileName);
-                paso2.PrintFileData(fileName);
-                Console.WriteLine("*******************************************************************************");
+                _dataFromFiles.Add(paso2.LoadDataInClasses(fileName));
+
             }
+
+            pe.CreateExcelFile(_dataFromFiles);
+
+            /*foreach (List<object> file in _dataFromFiles)
+            {
+                int count = 0;
+                if (file.Count > 0)
+                {
+                    Console.WriteLine("File name => " + file[count]);
+                    foreach (object line in file)
+                    {
+                        Console.WriteLine(count + " - " + line.ToString());
+                        count = count + 1;
+                    }
+                }
+            }
+            Console.WriteLine("*******************************************************************************");
+            */
         }
 
         public static void Paso2Deprecated()

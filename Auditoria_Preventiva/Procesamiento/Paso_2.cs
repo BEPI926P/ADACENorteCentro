@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Auditoria_Preventiva.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,110 @@ namespace Auditoria_Preventiva.Procesamiento
         {
             ReadFileData(filename);
             return _file;
+        }
+
+        public List<object> LoadDataInClasses(string filename)
+        {
+            ReadFileData(filename);
+            string[] path = filename.Split("\\");
+            int fileNumber = Convert.ToInt32(path[path.Length - 1].Split("_")[1].Split(".")[0]);
+
+            List<object> linesInClasses = new List<object>();
+
+            switch (fileNumber)
+            {
+                case 501:
+                    foreach (string line in this._file)
+                    {
+                        string[] columns = line.Split("|");
+                        if (Array.IndexOf(this._file, line) != 0)
+                        {
+                            _501 lineInClass = new _501()
+                            {
+                                FileName = path[path.Length - 1],
+                                Patente = columns[0],
+                                Pedimento = columns[1],
+                                SeccionAduanera = columns[2],
+                                TipoOperacion = columns[3],
+                                ClaveDocumento = columns[4],
+                                SeccionAduaneraEntrada = columns[5],
+                                CurpContribuyente = columns[6],
+                                Rfc = columns[7],
+                                CurpAgenteA = columns[8],
+                                TipoCambio = columns[9],
+                                TotalFletes = columns[10],
+                                TotalSeguros = columns[11],
+                                TotalEmbalajes = columns[12],
+                                TotalIncrementables = columns[13],
+                                TotalDeducibles = columns[14],
+                                PesoBrutoMercancia = columns[15],
+                                MedioTransporteSalida = columns[16],
+                                MedioTransporteArribo = columns[17],
+                                MedioTransporteEntrada_Salida = columns[18],
+                                DestinoMercancia = columns[19],
+                                NombreContribuyente = columns[20],
+                                CalleContribuyente = columns[21],
+                                NumInteriorContribuyente = columns[22],
+                                NumExteriorContribuyente = columns[23],
+                                CPContribuyente = columns[24],
+                                MunicipioContribuyente = columns[25],
+                                EntidadFedContribuyente = columns[26],
+                                PaisContribuyente = columns[27],
+                                TipoPedimento = columns[28],
+                                FechaRecepcionPedimento = columns[29],
+                                FechaPagoReal = columns[30]
+                            };
+
+                            linesInClasses.Add(lineInClass);
+                        }
+                    }
+                    break;
+                case 502:
+                    foreach (string line in this._file)
+                    {
+                        string[] columns = line.Split("|");
+                        if (Array.IndexOf(this._file, line) != 0)
+                        {
+                            _502 lineInClass = new _502()
+                            {
+                                Patente = columns[0],
+                                Pedimento = columns[1],
+                                SeccionAduanera = columns[2],
+                                RfcTransportista = columns[3],
+                                CurpTransportista = columns[4],
+                                NombreTransportista = columns[5],
+                                PaisTransporte = columns[6],
+                                IdentificadorTransporte = columns[7],
+                                FechaPagoReal = columns[8]
+                            };
+
+                            linesInClasses.Add(lineInClass);
+                        }
+                    }
+                    break;
+                /*case 503:
+                    break;
+                case 504:
+                    break;
+                case 505:
+                    break;
+                case 506:
+                    break;
+                case 507:
+                    break;
+                case 508:
+                    break;
+                case 509:
+                    break;
+                case 510:
+                    break;
+                case 511:
+                    break;*/
+                default:
+                    break;
+            }
+
+            return linesInClasses;
         }
 
         public void PrintFileData(string filename)
